@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/my-focusai/static/css/main.3c8278ff.css",
+    "main.js": "/my-focusai/static/js/main.8292ee79.js",
+    "index.html": "/my-focusai/index.html",
+    "main.3c8278ff.css.map": "/my-focusai/static/css/main.3c8278ff.css.map",
+    "main.8292ee79.js.map": "/my-focusai/static/js/main.8292ee79.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3c8278ff.css",
+    "static/js/main.8292ee79.js"
+  ]
+}
