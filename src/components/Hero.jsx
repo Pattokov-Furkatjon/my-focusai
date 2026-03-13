@@ -1,85 +1,125 @@
-import React from 'react';
-import '../styles/main.css';
+// src/components/Hero.jsx
+import React from "react";
+import "../styles/main.css";
 
 const Hero = () => {
   return (
-    <section className="section hero">
-      <div className="container hero-content">
+    <section className="section hero" id="top" aria-labelledby="hero-heading">
+      <div className="container hero-grid">
         <div className="hero-left">
-          <h1>Master Your Focus with AI</h1>
-          <p>
-            Boost productivity and eliminate distractions with our AI-powered deep work assistant.
+          <p className="hero-kicker">AI-powered focus analytics</p>
+
+          <h1 id="hero-heading" className="hero-title">
+            Master your deep work with intelligent focus tracking
+          </h1>
+
+          <p className="hero-lead">
+            FocusAI brings clarity to your calendar and attention. Protect deep
+            work, reduce distractions, and ship more of what matters.
           </p>
-          <div className="hero-buttons">
-            <button className="btn-primary">Start Free</button>
-            <button className="btn-secondary">Watch Demo</button>
+
+          <p className="hero-body">
+            Start in minutes—no complex setup. A clean, live dashboard shows
+            where your time goes and how your focus is improving over time.
+          </p>
+
+          <div className="hero-actions">
+            <button className="btn btn-primary hero-cta">
+              Start free trial
+            </button>
+            <button className="btn btn-secondary hero-ghost">
+              Watch product demo
+            </button>
+          </div>
+
+          <div className="hero-meta-row">
+            <div className="hero-footnote">
+              <span className="hero-highlight">No credit card required</span>
+              <span className="hero-divider">•</span>
+              <span>Cancel anytime</span>
+            </div>
+            <div className="hero-meta-pill">
+              <span className="hero-meta-dot" />
+              <span className="hero-meta-text">
+                Teams in 40+ countries track focus with FocusAI
+              </span>
+            </div>
           </div>
         </div>
 
         <div className="hero-right">
-          <div className="mockup-box">
-            <div className="dashboard">
-              {/* Sidebar */}
-              <div className="sidebar">
-                <div className="logo">FA</div>
-                <div className="sidebar-stats">
-                  <div className="sidebar-stat">
-                    <span className="stat-label">Focus Time</span>
-                    <span className="stat-value">4h</span>
-                  </div>
-                  <div className="sidebar-stat">
-                    <span className="stat-label">Sessions</span>
-                    <span className="stat-value">35m</span>
-                  </div>
-                  <div className="sidebar-stat">
-                    <span className="stat-label">Score</span>
-                    <span className="stat-value positive">+12%</span>
-                  </div>
-                </div>
-                <div className="sidebar-footer">
-                  <div className="menu-line"></div>
-                  <div className="menu-line"></div>
-                  <div className="menu-line"></div>
-                </div>
-              </div>
-
-              {/* Main */}
-              <div className="main">
-                <div className="topbar"></div>
-
-                <div className="stats">
-                  <div className="stat-card">
-                    <span className="stat-title">Page Views</span>
-                    <div className="stat-main">
-                      <span className="stat-number">12</span>
-                      <span className="stat-trend positive">+8%</span>
-                    </div>
-                  </div>
-                  <div className="stat-card">
-                    <span className="stat-title">Visitors Rate</span>
-                    <div className="stat-main">
-                      <span className="stat-number">3.2k</span>
-                      <span className="stat-trend positive">+3%</span>
-                    </div>
-                  </div>
-                  <div className="stat-card">
-                    <span className="stat-title">Bounce Rate</span>
-                    <div className="stat-main">
-                      <span className="stat-number">42%</span>
-                      <span className="stat-trend negative">-2%</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="chart">
-                  <div className="bar bar1"></div>
-                  <div className="bar bar2"></div>
-                  <div className="bar bar3"></div>
-                  <div className="bar bar4"></div>
-                  <div className="bar bar5"></div>
-                </div>
-              </div>
+          <div className="hero-mockup-shell">
+            <div className="hero-mockup-header">
+              <span className="mockup-pill mockup-pill-active">Today</span>
+              <span className="mockup-pill">Week</span>
+              <span className="mockup-pill">Month</span>
             </div>
+
+            <div className="hero-mockup-main">
+              <aside className="hero-sidebar">
+                <div className="hero-sidebar-logo">FA</div>
+                <div className="hero-sidebar-stats">
+                  <div className="hero-sidebar-stat">
+                    <span className="hero-sidebar-label">Focus time</span>
+                    <span className="hero-sidebar-value">4h 32m</span>
+                  </div>
+                  <div className="hero-sidebar-stat">
+                    <span className="hero-sidebar-label">Sessions</span>
+                    <span className="hero-sidebar-value">12</span>
+                  </div>
+                  <div className="hero-sidebar-stat">
+                    <span className="hero-sidebar-label">Focus score</span>
+                    <span className="hero-sidebar-value positive">+12%</span>
+                  </div>
+                </div>
+                <div className="hero-sidebar-footer">
+                  <div className="hero-sidebar-line" />
+                  <div className="hero-sidebar-line" />
+                  <div className="hero-sidebar-line" />
+                </div>
+              </aside>
+
+              <main className="hero-dashboard">
+                <div className="hero-dashboard-row">
+                  <div className="hero-stat-card">
+                    <div className="hero-stat-label">Today&apos;s focus</div>
+                    <div className="hero-stat-main">
+                      <span className="hero-stat-number">4.2h</span>
+                      <span className="hero-stat-pill positive">+15%</span>
+                    </div>
+                  </div>
+                  <div className="hero-stat-card">
+                    <div className="hero-stat-label">Weekly goal</div>
+                    <div className="hero-stat-main">
+                      <span className="hero-stat-number">28h</span>
+                      <span className="hero-stat-pill positive">+8%</span>
+                    </div>
+                  </div>
+                  <div className="hero-stat-card">
+                    <div className="hero-stat-label">Distractions</div>
+                    <div className="hero-stat-main">
+                      <span className="hero-stat-number">3</span>
+                      <span className="hero-stat-pill negative">-25%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="hero-chart">
+                  <div className="hero-bar bar-1" />
+                  <div className="hero-bar bar-2" />
+                  <div className="hero-bar bar-3" />
+                  <div className="hero-bar bar-4" />
+                  <div className="hero-bar bar-5" />
+                  <div className="hero-bar bar-6" />
+                  <div className="hero-bar bar-7" />
+                </div>
+              </main>
+            </div>
+          </div>
+
+          <div className="hero-mockup-caption">
+            <span className="hero-caption-dot" />
+            <span>Live focus analytics from your last 7 days</span>
           </div>
         </div>
       </div>

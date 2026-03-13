@@ -1,214 +1,133 @@
-import React, { useState } from 'react';
-import { FiGithub, FiExternalLink } from 'react-icons/fi';
+// src/pages/Projects.jsx
+import React, { useState } from "react";
+import { FiGithub, FiExternalLink } from "react-icons/fi";
+import "../styles/main.css";
 
 const Projects = () => {
   const allProjects = [
     {
       id: 1,
-      title: 'Weather App',
-      description: 'Real-time weather app based on OpenWeatherMap API.',
-      fullDescription: 'Users can enter a city name to see current weather and a 5-day forecast. Built with Axios, React hooks, and CSS modules.',
-      image: 'https://images.unsplash.com/photo-1592210454359-9043f067919b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-      tags: ['React', 'API', 'Axios', 'CSS'],
-      category: 'React',
-      liveUrl: 'https://example.com',
-      githubUrl: 'https://github.com',
+      title: "Weekly Focus Overview",
+      description: "See all focus sessions, streaks, and distraction events.",
+      image:
+        "https://images.unsplash.com/photo-1591696205602-2f950c417cb9?auto=format&fit=crop&w=800&q=80",
+      tags: ["Dashboard", "Analytics", "Charts"],
+      category: "Product",
+      liveUrl: "#",
+      githubUrl: "#",
       featured: true,
-      date: '2025-02',
-      complexity: 'Intermediate',
     },
     {
       id: 2,
-      title: 'E-Commerce UI',
-      description: 'Modern online store interface.',
-      fullDescription: 'Product listing, filtering, cart, and checkout pages. State management with Redux Toolkit.',
-      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-      tags: ['React', 'Redux', 'SCSS', 'Responsive'],
-      category: 'React',
-      liveUrl: 'https://example.com',
-      githubUrl: 'https://github.com',
+      title: "Session Timeline",
+      description:
+        "Understand exactly when you’re in flow and where interruptions happen.",
+      image:
+        "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=800&q=80",
+      tags: ["Timeline", "Deep work"],
+      category: "Product",
+      liveUrl: "#",
+      githubUrl: "#",
       featured: true,
-      date: '2025-01',
-      complexity: 'Advanced',
     },
     {
       id: 3,
-      title: 'Admin Dashboard',
-      description: 'Admin panel with statistics and charts.',
-      fullDescription: 'Interactive charts with Chart.js, user table, dark mode. Firebase authentication.',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-      tags: ['React', 'Chart.js', 'Firebase', 'Context API'],
-      category: 'Fullstack',
-      liveUrl: 'https://example.com',
-      githubUrl: 'https://github.com',
+      title: "Team Focus Map",
+      description:
+        "Coordinate focus hours across your team and spot collaboration windows.",
+      image:
+        "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=800&q=80",
+      tags: ["Teams", "Scheduling"],
+      category: "Team",
+      liveUrl: "#",
+      githubUrl: "#",
       featured: false,
-      date: '2024-12',
-      complexity: 'Advanced',
-    },
-    {
-      id: 4,
-      title: 'Task Manager',
-      description: 'Daily task management app.',
-      fullDescription: 'Add, edit, delete tasks, mark as completed. Data stored in LocalStorage.',
-      image: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-      tags: ['React', 'Hooks', 'LocalStorage', 'CSS'],
-      category: 'JavaScript',
-      liveUrl: 'https://example.com',
-      githubUrl: 'https://github.com',
-      featured: false,
-      date: '2024-11',
-      complexity: 'Beginner',
-    },
-    {
-      id: 5,
-      title: 'Portfolio Website',
-      description: 'Personal portfolio with animations.',
-      fullDescription: 'Page transitions with Framer Motion, parallax effects, project gallery.',
-      image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-      tags: ['React', 'Framer Motion', 'Tailwind', 'Responsive'],
-      category: 'React',
-      liveUrl: 'https://example.com',
-      githubUrl: 'https://github.com',
-      featured: true,
-      date: '2025-03',
-      complexity: 'Intermediate',
-    },
-    {
-      id: 6,
-      title: 'Chat Application',
-      description: 'Real-time chat app (Socket.io).',
-      fullDescription: 'Create rooms, send messages, user status. Node.js backend.',
-      image: 'https://images.unsplash.com/photo-1516387938699-a93567ec168e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-      tags: ['React', 'Socket.io', 'Node.js', 'Express'],
-      category: 'Fullstack',
-      liveUrl: 'https://example.com',
-      githubUrl: 'https://github.com',
-      featured: false,
-      date: '2024-10',
-      complexity: 'Advanced',
-    },
-    {
-      id: 7,
-      title: 'Recipe Finder',
-      description: 'Search and save recipes.',
-      fullDescription: 'Edamam API based recipe search, filters, favorites list.',
-      image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-      tags: ['React', 'API', 'Context API', 'SCSS'],
-      category: 'React',
-      liveUrl: 'https://example.com',
-      githubUrl: 'https://github.com',
-      featured: false,
-      date: '2024-09',
-      complexity: 'Intermediate',
-    },
-    {
-      id: 8,
-      title: 'Movie DB',
-      description: 'Movie database app (TMDB).',
-      fullDescription: 'Movie listing, search, details page, ratings. Infinite scroll.',
-      image: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-      tags: ['React', 'API', 'Infinite Scroll', 'CSS'],
-      category: 'JavaScript',
-      liveUrl: 'https://example.com',
-      githubUrl: 'https://github.com',
-      featured: true,
-      date: '2025-02',
-      complexity: 'Intermediate',
-    },
-    {
-      id: 9,
-      title: 'Expense Tracker',
-      description: 'Track your income and expenses.',
-      fullDescription: 'Add income/expense, calculate balance, chart view.',
-      image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-      tags: ['React', 'Hooks', 'Chart.js', 'LocalStorage'],
-      category: 'JavaScript',
-      liveUrl: 'https://example.com',
-      githubUrl: 'https://github.com',
-      featured: false,
-      date: '2024-08',
-      complexity: 'Beginner',
     },
   ];
 
-  const [filter, setFilter] = useState('All');
-  const [visibleProjects, setVisibleProjects] = useState(allProjects);
+  const [filter, setFilter] = useState("All");
 
-  const categories = ['All', 'React', 'JavaScript', 'Fullstack'];
+  const categories = ["All", "Product", "Team"];
 
-  const handleFilter = (category) => {
-    setFilter(category);
-    if (category === 'All') {
-      setVisibleProjects(allProjects);
-    } else {
-      setVisibleProjects(allProjects.filter(p => p.category === category));
-    }
-  };
+  const visible = allProjects.filter(
+    (p) => filter === "All" || p.category === filter
+  );
 
   return (
-    <section className="projects" id="projects">
-      <div className="projects-container">
-        <h2 className="projects-title">
-        Product <span className="highlight">Screenshots</span>
-        </h2>
-        <p className="projects-subtitle">
-          Here are some of my recent works. Click on any project to see more details.
-        </p>
+    <section className="section screenshots-section" id="projects">
+      <div className="container">
+        <header className="section-header section-header-centered">
+          <p className="section-kicker">Screenshots</p>
+          <h2 className="section-title">
+            A calm, opinionated dashboard for deep work.
+          </h2>
+          <p className="section-subtitle">
+            FocusAI is designed to feel invisible when you’re working, and
+            crystal clear when you’re planning.
+          </p>
+        </header>
 
-        <div className="projects-filter">
+        <div className="filter-row">
           {categories.map((cat) => (
             <button
               key={cat}
-              className={`filter-btn ${filter === cat ? 'active' : ''}`}
-              onClick={() => handleFilter(cat)}
+              type="button"
+              className={`filter-chip ${filter === cat ? "is-active" : ""}`}
+              onClick={() => setFilter(cat)}
             >
               {cat}
             </button>
           ))}
         </div>
 
-        <div className="projects-grid">
-          {visibleProjects.map((project) => (
-            <div className="project-card" key={project.id}>
-              <div className="project-image">
+        <div className="screenshots-grid">
+          {visible.map((project) => (
+            <article
+              className={`screenshot-card ${
+                project.featured ? "screenshot-card-featured" : ""
+              }`}
+              key={project.id}
+            >
+              {project.featured && (
+                <span className="screenshot-badge">Featured view</span>
+              )}
+              <div className="screenshot-media">
                 <img src={project.image} alt={project.title} loading="lazy" />
-                <div className="project-overlay">
-                  <div className="project-tags">
-                    {project.tags.slice(0, 3).map((tag, idx) => (
-                      <span key={idx} className="tag">{tag}</span>
-                    ))}
-                    {project.tags.length > 3 && <span className="tag">+{project.tags.length - 3}</span>}
-                  </div>
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
-                  <div className="project-meta">
-                    <span className="project-date">{project.date}</span>
-                    <span className={`project-complexity ${project.complexity.toLowerCase()}`}>
-                      {project.complexity}
+              </div>
+              <div className="screenshot-body">
+                <div className="screenshot-tags">
+                  {project.tags.map((tag) => (
+                    <span key={tag} className="tag-pill">
+                      {tag}
                     </span>
-                  </div>
-                  <div className="project-buttons">
-                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="btn-live">
-                      <FiExternalLink /> Live
-                    </a>
-                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="btn-github">
-                      <FiGithub /> Code
-                    </a>
-                  </div>
+                  ))}
+                </div>
+                <h3 className="screenshot-title">{project.title}</h3>
+                <p className="screenshot-text">{project.description}</p>
+                <div className="screenshot-links">
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link-ghost"
+                  >
+                    <FiExternalLink />
+                    Live view
+                  </a>
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link-ghost"
+                  >
+                    <FiGithub />
+                    Docs
+                  </a>
                 </div>
               </div>
-              {project.featured && <span className="featured-badge">Featured</span>}
-            </div>
+            </article>
           ))}
         </div>
-
-        {visibleProjects.length < allProjects.length && (
-          <div className="view-all">
-            <button className="btn-view-all" onClick={() => handleFilter('All')}>
-              View All Projects
-            </button>
-          </div>
-        )}
       </div>
     </section>
   );

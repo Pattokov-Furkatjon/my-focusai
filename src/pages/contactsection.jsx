@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
-import { FiMail, FiPhone, FiMapPin, FiGithub, FiLinkedin, FiTwitter } from 'react-icons/fi';
-import '../styles/main.css';
+// src/pages/contactsection.jsx
+import React, { useState } from "react";
+import {
+  FiMail,
+  FiPhone,
+  FiMapPin,
+  FiGithub,
+  FiLinkedin,
+  FiTwitter,
+} from "react-icons/fi";
+import "../styles/main.css";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
+    name: "",
+    email: "",
+    message: "",
   });
 
   const [status, setStatus] = useState({
@@ -26,119 +34,154 @@ const ContactSection = () => {
 
     setTimeout(() => {
       if (formData.name && formData.email && formData.message) {
-        console.log('Xabar yuborildi:', formData);
+        console.log("Message sent:", formData);
         setStatus({ submitting: false, success: true, error: false });
-        setFormData({ name: '', email: '', message: '' });
-        setTimeout(() => setStatus((s) => ({ ...s, success: false })), 3000);
+        setFormData({ name: "", email: "", message: "" });
+        setTimeout(
+          () => setStatus((s) => ({ ...s, success: false })),
+          2500
+        );
       } else {
         setStatus({ submitting: false, success: false, error: true });
-        setTimeout(() => setStatus((s) => ({ ...s, error: false })), 3000);
+        setTimeout(
+          () => setStatus((s) => ({ ...s, error: false })),
+          2500
+        );
       }
-    }, 1500);
+    }, 1200);
   };
 
   return (
-    <section className="contact" id="contact">
-      <div className="contact-container">
-        <h2 className="contact-title">
-          Get in <span className="highlight">Touch</span></h2>
-        <p className="contact-subtitle">
-          I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions. Feel free to reach out!
-        </p>
+    <section className="section contact-section" id="contact">
+      <div className="container contact-grid">
+        <header className="section-header">
+          <p className="section-kicker">Contact</p>
+          <h2 className="section-title">
+            Let&apos;s protect your team&apos;s focus.
+          </h2>
+          <p className="section-subtitle">
+            Share a bit about your workflow and we&apos;ll help you design a
+            focus stack that works for your team.
+          </p>
+        </header>
 
-        <div className="contact-wrapper">
-          <div className="contact-info">
-            <h3>Contact Information</h3>
-            <div className="info-item">
-              <FiMail className="info-icon" />
-              <div>
-                <h4>Email</h4>
-                <a href="mailto:hello@example.com">hello@example.com</a>
+        <div className="contact-columns">
+          <aside className="contact-card contact-info-card">
+            <h3>Talk to a human</h3>
+            <p>
+              We usually respond within one business day. No bots, no scripts—
+              just a product team that cares about deep work.
+            </p>
+
+            <div className="contact-info-list">
+              <div className="contact-info-row">
+                <FiMail className="contact-info-icon" />
+                <div>
+                  <span className="contact-info-label">Email</span>
+                  <a href="mailto:hello@focusai.app">hello@focusai.app</a>
+                </div>
               </div>
-            </div>
-            <div className="info-item">
-              <FiPhone className="info-icon" />
-              <div>
-                <h4>Phone</h4>
-                <a href="tel:+998901234567">+998 90 123 45 67</a>
+              <div className="contact-info-row">
+                <FiPhone className="contact-info-icon" />
+                <div>
+                  <span className="contact-info-label">Phone</span>
+                  <a href="tel:+998901234567">+998 90 123 45 67</a>
+                </div>
               </div>
-            </div>
-            <div className="info-item">
-              <FiMapPin className="info-icon" />
-              <div>
-                <h4>Location</h4>
-                <p>Andijon, Uzbekistan</p>
+              <div className="contact-info-row">
+                <FiMapPin className="contact-info-icon" />
+                <div>
+                  <span className="contact-info-label">Location</span>
+                  <p>Andijon, Uzbekistan</p>
+                </div>
               </div>
             </div>
 
-            <div className="social-links">
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <div className="contact-social">
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+              >
                 <FiGithub />
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+              >
                 <FiLinkedin />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Twitter"
+              >
                 <FiTwitter />
               </a>
             </div>
-          </div>
+          </aside>
 
-          <div className="contact-form">
-            <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="name">Your Name</label>
+          <div className="contact-card contact-form-card">
+            <form onSubmit={handleSubmit} className="contact-form">
+              <div className="form-field">
+                <label htmlFor="name">Name</label>
                 <input
-                  type="text"
                   id="name"
                   name="name"
+                  type="text"
+                  placeholder="Your name"
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="John Doe"
                   required
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="email">Email Address</label>
+
+              <div className="form-field">
+                <label htmlFor="email">Work email</label>
                 <input
-                  type="email"
                   id="email"
                   name="email"
+                  type="email"
+                  placeholder="you@company.com"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="john@example.com"
                   required
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="message">Your Message</label>
+
+              <div className="form-field">
+                <label htmlFor="message">How can we help?</label>
                 <textarea
                   id="message"
                   name="message"
-                  rows="5"
+                  rows={4}
+                  placeholder="Tell us about your team, workflows, and tools…"
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Tell me about your project..."
                   required
-                ></textarea>
+                />
               </div>
 
               <button
                 type="submit"
-                className="btn-submit"
+                className="btn btn-primary contact-submit"
                 disabled={status.submitting}
               >
-                {status.submitting ? 'Sending...' : 'Send Message'}
+                {status.submitting ? "Sending…" : "Send message"}
               </button>
 
               {status.success && (
-                <div className="form-feedback success">
-                  ✅ Message sent successfully!
+                <div className="form-banner form-banner-success">
+                  Message sent. We&apos;ll be in touch soon.
                 </div>
               )}
               {status.error && (
-                <div className="form-feedback error">
-                  ❌ Please fill all fields correctly.
+                <div className="form-banner form-banner-error">
+                  Please fill in all fields and try again.
                 </div>
               )}
             </form>

@@ -1,172 +1,275 @@
-import React, { useState } from 'react';
-import { FiSearch, FiTrendingUp, FiUsers, FiCheckCircle, FiClock, FiActivity } from 'react-icons/fi';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-
+// src/pages/dashboardStat.jsx
+import React, { useState } from "react";
+import {
+  FiSearch,
+  FiTrendingUp,
+  FiUsers,
+  FiCheckCircle,
+  FiClock,
+  FiActivity,
+} from "react-icons/fi";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import "../styles/main.css";
 
 const DashboardStat = () => {
-  // Statistik ma'lumotlar
   const statsData = [
-    { id: 1, title: 'Lorem ipsum', value: 125, change: +12, icon: <FiActivity />, color: '#3b82f6' },
-    { id: 2, title: 'Adipiscing', value: 1205, change: +8, icon: <FiUsers />, color: '#10b981' },
-    { id: 3, title: 'Consectetuer', value: 840, change: -3, icon: <FiCheckCircle />, color: '#f59e0b' },
-    { id: 4, title: 'Suscipit', value: 234, change: +5, icon: <FiClock />, color: '#8b5cf6' },
-    { id: 5, title: 'Dolor sit amet', value: 567, change: +15, icon: <FiTrendingUp />, color: '#ec4899' },
+    {
+      id: 1,
+      title: "Deep work hours",
+      value: 125,
+      change: +12,
+      icon: <FiActivity />,
+      color: "#4ade80",
+    },
+    {
+      id: 2,
+      title: "Sessions this week",
+      value: 1205,
+      change: +8,
+      icon: <FiUsers />,
+      color: "#60a5fa",
+    },
+    {
+      id: 3,
+      title: "Avg. session length",
+      value: 48,
+      change: -3,
+      icon: <FiClock />,
+      color: "#facc15",
+    },
+    {
+      id: 4,
+      title: "Goals completed",
+      value: 234,
+      change: +5,
+      icon: <FiCheckCircle />,
+      color: "#f97316",
+    },
+    {
+      id: 5,
+      title: "Distractions blocked",
+      value: 567,
+      change: +15,
+      icon: <FiTrendingUp />,
+      color: "#a855f7",
+    },
   ];
 
-  // Grafik ma'lumotlari (haftalik faollik)
   const chartData = [
-    { name: 'Mon', value: 65 },
-    { name: 'Tue', value: 85 },
-    { name: 'Wed', value: 45 },
-    { name: 'Thu', value: 95 },
-    { name: 'Fri', value: 70 },
-    { name: 'Sat', value: 55 },
-    { name: 'Sun', value: 40 },
+    { name: "Mon", value: 65 },
+    { name: "Tue", value: 85 },
+    { name: "Wed", value: 45 },
+    { name: "Thu", value: 95 },
+    { name: "Fri", value: 70 },
+    { name: "Sat", value: 55 },
+    { name: "Sun", value: 40 },
   ];
 
-  // Ma'lumotlar ro‘yxati (so‘nggi faoliyatlar)
   const initialActivities = [
-    { id: 1, title: 'Lorem ipsum dolor sit amet', category: 'Adipiscing', time: '2 min ago', status: 'completed' },
-    { id: 2, title: 'Consectetuer adipiscing elit', category: 'Suscipit', time: '15 min ago', status: 'pending' },
-    { id: 3, title: 'Duis autem vel eum iriure', category: 'Dolor', time: '1 hour ago', status: 'in-progress' },
-    { id: 4, title: 'Ut wisi enim ad minim veniam', category: 'Adipiscing', time: '3 hours ago', status: 'completed' },
-    { id: 5, title: 'Nam liber tempor cum soluta', category: 'Consectetuer', time: 'yesterday', status: 'pending' },
-    { id: 6, title: 'Claritas est etiam processus', category: 'Suscipit', time: 'yesterday', status: 'completed' },
-    { id: 7, title: 'Mirum est notare quam littera', category: 'Dolor', time: '2 days ago', status: 'in-progress' },
+    {
+      id: 1,
+      title: "Deep work: Strategy doc",
+      category: "Deep work",
+      time: "2 min ago",
+      status: "completed",
+    },
+    {
+      id: 2,
+      title: "Blocked: Social media",
+      category: "Distraction",
+      time: "15 min ago",
+      status: "completed",
+    },
+    {
+      id: 3,
+      title: "Planning: Sprint focus blocks",
+      category: "Planning",
+      time: "1 hour ago",
+      status: "in-progress",
+    },
+    {
+      id: 4,
+      title: "Deep work: Refactor auth flow",
+      category: "Deep work",
+      time: "3 hours ago",
+      status: "completed",
+    },
+    {
+      id: 5,
+      title: "Goal created: Q2 focus target",
+      category: "Goals",
+      time: "yesterday",
+      status: "pending",
+    },
   ];
 
-  const [activities, setActivities] = useState(initialActivities);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterCategory, setFilterCategory] = useState('All');
+  const [activities] = useState(initialActivities);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterCategory, setFilterCategory] = useState("All");
 
-  // Qidiruv va kategorya bo‘yicha filterlash
-  const filteredActivities = activities.filter(activity => {
-    const matchesSearch = activity.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          activity.category.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = filterCategory === 'All' || activity.category === filterCategory;
+  const categories = ["All", ...new Set(activities.map((a) => a.category))];
+
+  const filteredActivities = activities.filter((activity) => {
+    const matchesSearch =
+      activity.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      activity.category.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory =
+      filterCategory === "All" || activity.category === filterCategory;
     return matchesSearch && matchesCategory;
   });
 
-  // Kategoryalar ro‘yxati (filter uchun)
-  const categories = ['All', ...new Set(activities.map(a => a.category))];
-
-  // Status ranglari
   const statusColors = {
-    completed: '#10b981',
-    pending: '#f59e0b',
-    'in-progress': '#3b82f6',
+    completed: "#22c55e",
+    pending: "#f97316",
+    "in-progress": "#60a5fa",
   };
 
   return (
-    <section className="dashboard-stat">
-      <div className="dashboard-container">
-        <h2 className="dashboard-title">
-          Dashboard <span className="highlight">Statistics</span>
-        </h2>
+    <section
+      className="section dashboard-section"
+      id="dashboard"
+      aria-labelledby="dashboard-heading"
+    >
+      <div className="container">
+        <header className="section-header section-header-centered">
+          <p className="section-kicker">Analytics</p>
+          <h2 id="dashboard-heading" className="section-title">
+            See every focus session in one calm dashboard.
+          </h2>
+          <p className="section-subtitle">
+            Real-time charts and activity feeds make it easy to spot trends,
+            celebrate streaks, and debug distraction patterns.
+          </p>
+        </header>
 
-        {/* Statistik kartochkalar */}
-        <div className="stats-grid">
+        <div className="dashboard-stats-grid">
           {statsData.map((stat) => (
-            <div className="stat-card" key={stat.id}>
-              <div className="stat-icon" style={{ background: `${stat.color}20`, color: stat.color }}>
+            <article className="metric-card" key={stat.id}>
+              <div
+                className="metric-icon"
+                style={{
+                  backgroundColor: `${stat.color}22`,
+                  color: stat.color,
+                }}
+              >
                 {stat.icon}
               </div>
-              <div className="stat-content">
-                <h3>{stat.title}</h3>
-                <div className="stat-value">
-                  <span className="number">{stat.value.toLocaleString()}</span>
-                  <span className={`change ${stat.change >= 0 ? 'positive' : 'negative'}`}>
-                    {stat.change >= 0 ? '+' : ''}{stat.change}%
+              <div className="metric-body">
+                <p className="metric-label">{stat.title}</p>
+                <div className="metric-main">
+                  <span className="metric-value">
+                    {stat.value.toLocaleString()}
+                  </span>
+                  <span
+                    className={`metric-change ${
+                      stat.change >= 0 ? "positive" : "negative"
+                    }`}
+                  >
+                    {stat.change >= 0 ? "+" : ""}
+                    {stat.change}%
                   </span>
                 </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
 
-        {/* Grafik va qidiruv qismi */}
-        <div className="dashboard-main">
-          <div className="chart-section">
-            <h3>Weekly Activity</h3>
-            <div className="chart-container">
-              <ResponsiveContainer width="100%" height={200}>
+        <div className="dashboard-main-grid">
+          <section className="panel">
+            <header className="panel-header">
+              <h3>Weekly focus activity</h3>
+              <span className="panel-caption">Hours of deep work per day</span>
+            </header>
+            <div className="panel-body chart-panel">
+              <ResponsiveContainer width="100%" height={220}>
                 <BarChart data={chartData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
                   <XAxis dataKey="name" stroke="#64748b" />
                   <YAxis stroke="#64748b" />
-                  <Tooltip />
-                  <Bar dataKey="value" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+                  <Tooltip
+                    contentStyle={{
+                      background: "#020617",
+                      borderRadius: 10,
+                      border: "1px solid #1e293b",
+                      color: "#e5e7eb",
+                    }}
+                  />
+                  <Bar
+                    dataKey="value"
+                    fill="#60a5fa"
+                    radius={[8, 8, 0, 0]}
+                    barSize={24}
+                  />
                 </BarChart>
               </ResponsiveContainer>
             </div>
-          </div>
+          </section>
 
-          <div className="activity-section">
-            <h3>Recent Activities</h3>
-            
-            {/* Qidiruv va filter */}
-            <div className="search-filter">
-              <div className="search-box">
-                <FiSearch className="search-icon" />
+          <section className="panel">
+            <header className="panel-header">
+              <h3>Recent activity</h3>
+              <span className="panel-caption">
+                Live feed of focus sessions and key events
+              </span>
+            </header>
+
+            <div className="panel-toolbar">
+              <div className="toolbar-search">
+                <FiSearch className="toolbar-search-icon" />
                 <input
                   type="text"
-                  placeholder="Search activities..."
+                  placeholder="Search activity…"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
               <select
-                className="category-filter"
+                className="toolbar-select"
                 value={filterCategory}
                 onChange={(e) => setFilterCategory(e.target.value)}
               >
-                {categories.map(cat => (
-                  <option key={cat} value={cat}>{cat}</option>
+                {categories.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
                 ))}
               </select>
             </div>
 
-            {/* Ma'lumotlar ro‘yxati */}
             <div className="activity-list">
               {filteredActivities.length > 0 ? (
-                filteredActivities.map(activity => (
-                  <div className="activity-item" key={activity.id}>
-                    <div className="activity-info">
+                filteredActivities.map((activity) => (
+                  <article className="activity-row" key={activity.id}>
+                    <div className="activity-copy">
                       <h4>{activity.title}</h4>
-                      <p>{activity.category} • {activity.time}</p>
+                      <p>
+                        {activity.category} • {activity.time}
+                      </p>
                     </div>
                     <span
                       className="activity-status"
-                      style={{ background: `${statusColors[activity.status]}20`, color: statusColors[activity.status] }}
+                      style={{
+                        backgroundColor: `${statusColors[activity.status]}22`,
+                        color: statusColors[activity.status],
+                      }}
                     >
                       {activity.status}
                     </span>
-                  </div>
+                  </article>
                 ))
               ) : (
-                <div className="no-results">No activities found</div>
+                <div className="activity-empty">No activity found.</div>
               )}
             </div>
-          </div>
-        </div>
-
-        {/* Qo‘shimcha statistik bloklar (rasmdagi qo‘shimcha matnlar) */}
-        <div className="additional-stats">
-          <div className="stat-block">
-            <h4>Lorem ipsum</h4>
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-            <span className="stat-badge">+245</span>
-          </div>
-          <div className="stat-block">
-            <h4>Adipiscing</h4>
-            <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros.</p>
-            <span className="stat-badge">1205</span>
-          </div>
-          <div className="stat-block">
-            <h4>Consectetuer</h4>
-            <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
-            <span className="stat-badge">840</span>
-          </div>
+          </section>
         </div>
       </div>
     </section>

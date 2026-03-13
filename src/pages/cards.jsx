@@ -1,57 +1,64 @@
+// src/pages/cards.jsx
 import React from "react";
 import "../styles/main.css";
 
 const Cards = () => {
   const cardData = [
     {
-      title: "AI-Powered Focus",
+      title: "AI-powered focus coaching",
       description:
-        "Our AI assistant analyzes your work patterns and provides personalized insights to help you stay focused and productive.",
+        "Understand when you work best with intelligent insights into your deep work patterns and distraction hotspots.",
     },
     {
-      title: "Distraction Blocking",
+      title: "Session-based tracking",
       description:
-        "Block distracting websites and apps during your deep work sessions to maintain your concentration.",
+        "Track structured focus sessions with automatic detection, gentle nudges, and flexible timers that adapt to your flow.",
     },
     {
-      title: "Focus Analytics",
+      title: "Distraction guardrails",
       description:
-        "Track your focus time, sessions, and productivity trends with intuitive analytics tools.",
+        "Block or soften distracting apps and sites during deep work so your best hours stay dedicated to real progress.",
     },
     {
-      title: "Custom Schedules",
+      title: "Team visibility",
       description:
-        "Set up personal work and break schedules to match your rhythm.",
+        "Share focus trends with your team to coordinate no-meeting blocks and protect the hours that matter most.",
     },
     {
-      title: "Real-time Insights",
+      title: "Smart goals & alerts",
       description:
-        "Receive instant feedback on your focus levels and productivity.",
+        "Set weekly focus goals, see how you’re pacing in real time, and get nudges before you fall behind.",
     },
     {
-      title: "Team Collaboration",
+      title: "Secure by default",
       description:
-        "Share progress and focus stats with your team to stay aligned.",
+        "Your data is encrypted in transit and at rest. You control who sees what, with workspace-level privacy controls.",
     },
   ];
 
   return (
-    <section className="features-section">
-      <div className="features-container">
-        <div className="features-header">
-          <h2 className="contact-title">Powerful <span className="highlight">Features</span></h2>
-          <p>
-            Everything you need to master your focus and boost productivity.
+    <section className="section features-section" id="features">
+      <div className="container">
+        <header className="section-header section-header-centered">
+          <p className="section-kicker">Product</p>
+          <h2 className="section-title">
+            Everything you need to protect your focus.
+          </h2>
+          <p className="section-subtitle">
+            FocusAI brings planning, analytics, and guardrails together in a
+            single calm dashboard designed for deep work.
           </p>
-        </div>
+        </header>
 
-        <div className="cards">
+        <div className="feature-grid">
           {cardData.map((card, index) => (
-            <div key={index} className="card">
-              <div className="card-icon">⚡</div>
-              <h3 className="card-title">{card.title}</h3>
-              <p className="card-description">{card.description}</p>
-            </div>
+            <article className="feature-card" key={index}>
+              <div className="feature-icon">
+                <span aria-hidden="true">◎</span>
+              </div>
+              <h3 className="feature-title">{card.title}</h3>
+              <p className="feature-body">{card.description}</p>
+            </article>
           ))}
         </div>
       </div>

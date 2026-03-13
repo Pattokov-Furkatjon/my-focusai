@@ -1,161 +1,150 @@
-import React, { useState } from 'react';
-
+// src/pages/pricing.jsx
+import React, { useState } from "react";
+import "../styles/main.css";
 
 const Pricing = () => {
-  const [isYearly, setIsYearly] = useState(false);
+  const [isYearly, setIsYearly] = useState(true);
 
-  // Narxlar (monthly)
   const prices = {
-    intro: 19,
-    base: 39,
-    popular: 99,
-    enterprise: 199,
+    starter: 12,
+    team: 29,
+    business: 59,
   };
 
-  // Yillik hisoblash (17% chegirma)
-  const yearlyPrice = (monthly) => Math.round(monthly * 12 * 0.83);
+  const yearly = (m) => Math.round(m * 12 * 0.8);
 
-  // Xususiyatlar ro'yxati (har bir plan uchun true/false)
-  const features = [
+  const plans = [
     {
-      name: 'All limited links',
-      intro: true,
-      base: true,
-      popular: true,
-      enterprise: true,
+      id: "starter",
+      name: "Starter",
+      description: "For individuals protecting their first deep work blocks.",
+      highlighted: false,
+      cta: "Start for free",
     },
     {
-      name: 'Own analytics platform',
-      intro: false,
-      base: true,
-      popular: true,
-      enterprise: true,
+      id: "team",
+      name: "Team",
+      description: "For product teams coordinating shared focus hours.",
+      highlighted: true,
+      cta: "Start 14‑day trial",
     },
     {
-      name: 'Chat Support',
-      intro: false,
-      base: false,
-      popular: true,
-      enterprise: true,
-    },
-    {
-      name: 'Optimize Hashtags',
-      intro: false,
-      base: true,
-      popular: true,
-      enterprise: true,
-    },
-    {
-      name: 'Unlimited',
-      intro: false,
-      base: false,
-      popular: false,
-      enterprise: true,
+      id: "business",
+      name: "Business",
+      description: "For organizations that need advanced reporting and SSO.",
+      highlighted: false,
+      cta: "Talk to sales",
     },
   ];
 
+  const features = [
+    "Unlimited focus sessions",
+    "Smart weekly goals",
+    "Distraction blocking",
+    "Calendar integrations",
+    "Team workspace & roles",
+    "Advanced analytics",
+  ];
+
+  const availability = {
+    starter: [true, true, true, false, false, false],
+    team: [true, true, true, true, true, false],
+    business: [true, true, true, true, true, true],
+  };
+
   return (
-    <section className="pricing" style={{ backgroundColor: '#0A2138' }}>
-      <div className="pricing-container">
-        <div className="pricing-header">
-          <h2 className="pricing-title">
-            Simple, transparent pricing
-          </h2>
-          <p className="pricing-subtitle">No contracts. No surprise fees.</p>
-          <div className="header-cta">
-            <span className="contact-text">Contact us!</span>
-            <a href="#contact" className="get-started-link">
-              Get Started <span className="arrow">→</span>
-            </a>
-          </div>
-        </div>
+    <section className="section pricing-section" id="pricing">
+      <div className="container">
+        <header className="section-header section-header-centered">
+          <p className="section-kicker">Pricing</p>
+          <h2 className="section-title">Simple, predictable pricing.</h2>
+          <p className="section-subtitle">
+            Start in minutes on the free trial. Upgrade when your team is ready
+            to protect their best hours.
+          </p>
+        </header>
 
-        {/* Toggle Monthly/Yearly */}
         <div className="billing-toggle">
-          <span className={`toggle-option ${!isYearly ? 'active' : ''}`} onClick={() => setIsYearly(false)}>
-            Monthly Pricing
-          </span>
-          <span className={`toggle-option ${isYearly ? 'active' : ''}`} onClick={() => setIsYearly(true)}>
-            Yearly Pricing <span className="save-badge">Save 17%</span>
-          </span>
+          <button
+            type="button"
+            className={`billing-pill ${!isYearly ? "is-active" : ""}`}
+            onClick={() => setIsYearly(false)}
+          >
+            Monthly
+          </button>
+          <button
+            type="button"
+            className={`billing-pill ${isYearly ? "is-active" : ""}`}
+            onClick={() => setIsYearly(true)}
+          >
+            Yearly{" "}
+            <span className="billing-save-pill">
+              Save 20%
+            </span>
+          </button>
         </div>
 
-        {/* Pricing Cards */}
         <div className="pricing-cards">
-          {/* Intro */}
-          <div className="pricing-card">
-            <h3 className="plan-name">Intro</h3>
-            <div className="plan-price">
-              <span className="currency">$</span>
-              <span className="amount">{isYearly ? yearlyPrice(prices.intro) : prices.intro}</span>
-              <span className="period">/{isYearly ? 'year' : 'month'}</span>
-            </div>
-            <button className="choose-plan-btn">Choose Plan</button>
-          </div>
+          {plans.map((plan) => {
+            const monthlyPrice = prices[plan.id];
+            const displayPrice = isYearly ? yearly(monthlyPrice) : monthlyPrice;
+            const period = isYearly ? "year" : "month";
 
-          {/* Base */}
-          <div className="pricing-card">
-            <h3 className="plan-name">Base</h3>
-            <div className="plan-price">
-              <span className="currency">$</span>
-              <span className="amount">{isYearly ? yearlyPrice(prices.base) : prices.base}</span>
-              <span className="period">/{isYearly ? 'year' : 'month'}</span>
-            </div>
-            <button className="choose-plan-btn">Choose Plan</button>
-          </div>
-
-          {/* Popular */}
-          <div className="pricing-card popular">
-            <div className="popular-badge">Popular</div>
-            <h3 className="plan-name">Popular</h3>
-            <div className="plan-price">
-              <span className="currency">$</span>
-              <span className="amount">{isYearly ? yearlyPrice(prices.popular) : prices.popular}</span>
-              <span className="period">/{isYearly ? 'year' : 'month'}</span>
-            </div>
-            <button className="choose-plan-btn">Choose Plan</button>
-          </div>
-
-          {/* Enterprise */}
-          <div className="pricing-card">
-            <h3 className="plan-name">Enterprise</h3>
-            <div className="plan-price">
-              <span className="currency">$</span>
-              <span className="amount">{isYearly ? yearlyPrice(prices.enterprise) : prices.enterprise}</span>
-              <span className="period">/{isYearly ? 'year' : 'month'}</span>
-            </div>
-            <button className="choose-plan-btn">Choose Plan</button>
-          </div>
+            return (
+              <article
+                key={plan.id}
+                className={`pricing-card ${
+                  plan.highlighted ? "pricing-card-highlighted" : ""
+                }`}
+              >
+                {plan.highlighted && (
+                  <div className="pricing-badge">Most popular</div>
+                )}
+                <div className="pricing-card-header">
+                  <h3 className="pricing-plan-name">{plan.name}</h3>
+                  <p className="pricing-plan-desc">{plan.description}</p>
+                </div>
+                <div className="pricing-price">
+                  <span className="pricing-currency">$</span>
+                  <span className="pricing-amount">{displayPrice}</span>
+                  <span className="pricing-period">/{period}</span>
+                </div>
+                <button
+                  type="button"
+                  className={`btn ${
+                    plan.highlighted ? "btn-primary" : "btn-secondary"
+                  } pricing-cta`}
+                >
+                  {plan.cta}
+                </button>
+                <ul className="pricing-feature-list">
+                  {features.map((feature, index) => {
+                    const has = availability[plan.id][index];
+                    return (
+                      <li
+                        key={feature}
+                        className={`pricing-feature ${
+                          has ? "is-included" : "is-missing"
+                        }`}
+                      >
+                        <span className="pricing-feature-indicator">
+                          {has ? "✓" : "–"}
+                        </span>
+                        <span>{feature}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </article>
+            );
+          })}
         </div>
 
-        {/* Features Table */}
-        <div className="features-table">
-          <div className="features-header">
-            <div className="feature-name"></div>
-            <div className="feature-plan">Intro</div>
-            <div className="feature-plan">Base</div>
-            <div className="feature-plan">Popular</div>
-            <div className="feature-plan">Enterprise</div>
-          </div>
-          {features.map((feature, idx) => (
-            <div className="feature-row" key={idx}>
-              <div className="feature-name">{feature.name}</div>
-              <div className="feature-plan">{feature.intro ? '✓' : '–'}</div>
-              <div className="feature-plan">{feature.base ? '✓' : '–'}</div>
-              <div className="feature-plan">{feature.popular ? '✓' : '–'}</div>
-              <div className="feature-plan">{feature.enterprise ? '✓' : '–'}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* Extra CTA */}
-        <div className="extra-cta">
-          <div className="save-options">
-            <span className="save-item">✓ Monthly Pricing</span>
-            <span className="save-item">✓ Yearly Pricing / Save 17%</span>
-            <span className="save-item">✗ Save %20</span>
-            <span className="save-item">● Choose Plan</span>
-          </div>
+        <div className="pricing-footer-note">
+          <p>
+            Need a larger deployment, SOC2 reports, or on‑premise options?{" "}
+            <a href="#contact">Talk to our team.</a>
+          </p>
         </div>
       </div>
     </section>
