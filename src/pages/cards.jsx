@@ -28,8 +28,6 @@ const PremiumFeaturesCards = ({ cards }) => (
   </div>
 );
 
-export default PremiumFeaturesCards;
-
 /* --- CSS styles for modern premium card components --- */
 const styles = `
 .premium-cards-grid {
